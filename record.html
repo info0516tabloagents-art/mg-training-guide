@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG研修 成長記録シート</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 12mm 10mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+            color: #1a202c;
+            background: #fff;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 295mm;
+            margin: 0 auto;
+            padding: 10mm 10mm;
+        }
+
+        @media print {
+            body { background: #fff; }
+            .page { padding: 0; margin: 0; width: 100%; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+        }
+
+        @media screen {
+            body { background: #e2e8f0; padding: 20px 0; }
+            .page {
+                background: #fff;
+                box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+                margin-bottom: 20px;
+            }
+            .no-print {
+                text-align: center;
+                padding: 16px;
+            }
+            .print-btn {
+                padding: 12px 32px;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+            .print-btn:hover {
+                opacity: 0.9;
+            }
+        }
+
+        /* ===== ヘッダー ===== */
+        .sheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 3px solid #1a202c;
+            padding-bottom: 6px;
+            margin-bottom: 10px;
+        }
+
+        .sheet-title {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+        }
+
+        .sheet-title small {
+            font-size: 10px;
+            font-weight: 500;
+            color: #718096;
+            margin-left: 8px;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 16px;
+            font-size: 10px;
+        }
+
+        .header-info .field {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .header-info .field-label {
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .header-info .field-input {
+            border-bottom: 1px solid #a0aec0;
+            min-width: 80px;
+            height: 18px;
+        }
+
+        .field-input.wide {
+            min-width: 50px;
+        }
+
+        /* ===== セクション ===== */
+        .section-title {
+            font-size: 12px;
+            font-weight: 800;
+            background: #1a202c;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 3px;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .section-subtitle {
+            font-size: 9px;
+            color: #718096;
+            margin-left: 8px;
+            font-weight: 500;
+        }
+
+        /* ===== テーブル共通 ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9px;
+        }
+
+        th, td {
+            border: 1px solid #a0aec0;
+            padding: 4px 6px;
+            text-align: center;
+        }
+
+        th {
+            background: #f7f8fc;
+            font-weight: 700;
+            font-size: 8.5px;
+            color: #2d3748;
+        }
+
+        .row-label {
+            text-align: left;
+            font-weight: 700;
+            background: #f7f8fc;
+            white-space: nowrap;
+            font-size: 8.5px;
+        }
+
+        .write-cell {
+            height: 22px;
+            background: #fff;
+        }
+
+        .write-cell-tall {
+            height: 30px;
+            background: #fff;
+        }
+
+        .highlight-row td {
+            background: #f0f0ff;
+        }
+
+        .highlight-row .row-label {
+            background: #e8e8ff;
+            color: #4c51bf;
+        }
+
+        .total-row td {
+            border-top: 2px solid #1a202c;
+            font-weight: 700;
+        }
+
+        .section-gap {
+            height: 10px;
+        }
+
+        /* ===== 期別記録テーブル ===== */
+        .period-table th.period-header {
+            background: #667eea;
+            color: #fff;
+            font-size: 9px;
+            width: 14%;
+        }
+
+        .period-table .row-label {
+            width: 22%;
+        }
+
+        .cat-header {
+            background: #edf2f7 !important;
+            font-weight: 800;
+            font-size: 8px;
+            color: #4a5568;
+            text-align: left;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== 研修回比較テーブル ===== */
+        .compare-table th.round-header {
+            background: #48bb78;
+            color: #fff;
+            font-size: 9px;
+        }
+
+        /* ===== 振り返りメモ ===== */
+        .memo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .memo-box {
+            border: 1px solid #a0aec0;
+            border-radius: 4px;
+            padding: 6px 8px;
+            min-height: 55px;
+        }
+
+        .memo-box-label {
+            font-size: 8.5px;
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 2px;
+        }
+
+        .memo-lines {
+            border-bottom: 1px dotted #cbd5e0;
+            height: 14px;
+        }
+
+        /* ===== ページ2: 研修回比較 ===== */
+        .graph-area {
+            border: 1px solid #a0aec0;
+            border-radius: 4px;
+            height: 90px;
+            margin-top: 6px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 8px 12px 20px;
+            gap: 4px;
+        }
+
+        .graph-area::before {
+            content: "自己資本の推移（手書きで棒グラフ or 折れ線グラフを記入）";
+            position: absolute;
+            top: 4px;
+            left: 8px;
+            font-size: 7.5px;
+            color: #a0aec0;
+        }
+
+        .graph-y-axis {
+            position: absolute;
+            left: 4px;
+            bottom: 18px;
+            top: 20px;
+            border-left: 1px solid #cbd5e0;
+        }
+
+        .graph-x-labels {
+            position: absolute;
+            bottom: 4px;
+            left: 30px;
+            right: 12px;
+            display: flex;
+            justify-content: space-around;
+            font-size: 7px;
+            color: #718096;
+        }
+
+        .graph-gridline {
+            position: absolute;
+            left: 30px;
+            right: 12px;
+            border-top: 1px dotted #e2e8f0;
+        }
+
+        /* ===== 全体の振り返り ===== */
+        .full-memo {
+            border: 1px solid #a0aec0;
+            border-radius: 4px;
+            padding: 6px 8px;
+            min-height: 80px;
+            margin-top: 6px;
+        }
+
+        .full-memo .memo-lines {
+            height: 16px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="no-print">
+        <button class="print-btn" onclick="window.print()">印刷する / PDFで保存</button>
+    </div>
+
+    <!-- ===== ページ1：期別記録シート ===== -->
+    <div class="page">
+        <div class="sheet-header">
+            <div class="sheet-title">MG研修 成長記録シート <small>製造業版ジュニア</small></div>
+            <div class="header-info">
+                <div class="field">
+                    <span class="field-label">研修回：第</span>
+                    <span class="field-input wide"></span>
+                    <span>回目</span>
+                </div>
+                <div class="field">
+                    <span class="field-label">日付：</span>
+                    <span class="field-input"></span>
+                </div>
+                <div class="field">
+                    <span class="field-label">社名：</span>
+                    <span class="field-input"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 期別の数値記録 -->
+        <div class="section-title">期別 経営成績</div>
+        <span class="section-subtitle">各期の決算後に記入しましょう</span>
+
+        <table class="period-table" style="margin-top: 6px;">
+            <thead>
+                <tr>
+                    <th class="row-label"></th>
+                    <th class="period-header">第1期</th>
+                    <th class="period-header">第2期</th>
+                    <th class="period-header">第3期</th>
+                    <th class="period-header">第4期</th>
+                    <th class="period-header">第5期</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="6" class="cat-header">&#x25B6; 販売</td></tr>
+                <tr>
+                    <td class="row-label">販売個数</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">平均販売単価</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">売上高</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+
+                <tr><td colspan="6" class="cat-header">&#x25B6; 利益</td></tr>
+                <tr>
+                    <td class="row-label">売上原価</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">粗利益（売上総利益）</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">固定費合計</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr class="highlight-row">
+                    <td class="row-label">経常利益</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+
+                <tr><td colspan="6" class="cat-header">&#x25B6; 財務状態</td></tr>
+                <tr>
+                    <td class="row-label">現金残高</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">借入金</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr class="highlight-row">
+                    <td class="row-label">自己資本（純資産）</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+
+                <tr><td colspan="6" class="cat-header">&#x25B6; 経営指標</td></tr>
+                <tr>
+                    <td class="row-label">機械台数（小型/大型）</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">ワーカー数</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">セールスマン数</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">在庫数（材料/製品）</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-gap"></div>
+
+        <!-- 各期の振り返り -->
+        <div class="section-title">期別ふりかえりメモ</div>
+        <span class="section-subtitle">良かった点・反省点を書き留めよう</span>
+
+        <div class="memo-grid" style="margin-top: 6px;">
+            <div class="memo-box">
+                <div class="memo-box-label">第1期・第2期</div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+            </div>
+            <div class="memo-box">
+                <div class="memo-box-label">第3期</div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+            </div>
+            <div class="memo-box">
+                <div class="memo-box-label">第4期</div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+            </div>
+            <div class="memo-box">
+                <div class="memo-box-label">第5期</div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+            </div>
+        </div>
+
+        <div class="section-gap"></div>
+
+        <!-- 今回の総括 -->
+        <div class="section-title">今回の研修まとめ</div>
+
+        <div class="memo-grid" style="margin-top: 6px;">
+            <div class="memo-box">
+                <div class="memo-box-label">今回の戦略・方針</div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+            </div>
+            <div class="memo-box">
+                <div class="memo-box-label">うまくいったこと</div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+            </div>
+            <div class="memo-box">
+                <div class="memo-box-label">次回の改善ポイント</div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+            </div>
+            <div class="memo-box">
+                <div class="memo-box-label">学んだこと・気づき</div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ページ2：研修回比較シート ===== -->
+    <div class="page page-break">
+        <div class="sheet-header">
+            <div class="sheet-title">MG研修 成長の記録 <small>研修回ごとの比較</small></div>
+            <div class="header-info">
+                <div class="field">
+                    <span class="field-label">氏名：</span>
+                    <span class="field-input"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 研修回ごとの最終成績比較 -->
+        <div class="section-title">研修回ごとの最終成績（第5期終了時）</div>
+        <span class="section-subtitle">毎回の研修後に1列ずつ埋めていきましょう</span>
+
+        <table class="compare-table" style="margin-top: 6px;">
+            <thead>
+                <tr>
+                    <th class="row-label" style="width: 22%"></th>
+                    <th class="round-header">1回目</th>
+                    <th class="round-header">2回目</th>
+                    <th class="round-header">3回目</th>
+                    <th class="round-header">4回目</th>
+                    <th class="round-header">5回目</th>
+                    <th class="round-header">6回目</th>
+                    <th class="round-header">7回目</th>
+                    <th class="round-header">8回目</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="row-label">開催日</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+
+                <tr><td colspan="9" class="cat-header">&#x25B6; 最終成績（第5期末）</td></tr>
+                <tr>
+                    <td class="row-label">売上高（5期合計）</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">経常利益（5期合計）</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr class="highlight-row">
+                    <td class="row-label">最終自己資本</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">最終借入金</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">販売個数（5期合計）</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">順位 / 参加人数</td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                    <td class="write-cell"></td>
+                </tr>
+
+                <tr><td colspan="9" class="cat-header">&#x25B6; 戦略・ふりかえり</td></tr>
+                <tr>
+                    <td class="row-label">今回の戦略</td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">良かった点</td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                </tr>
+                <tr>
+                    <td class="row-label">次回への課題</td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-tall"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-gap"></div>
+
+        <!-- 自己資本の推移グラフ -->
+        <div class="section-title">自己資本の推移グラフ</div>
+        <span class="section-subtitle">最終自己資本を棒グラフで記入して成長を可視化しよう</span>
+
+        <div class="graph-area" style="margin-top: 6px;">
+            <div class="graph-y-axis"></div>
+            <div class="graph-gridline" style="bottom: 75%;"></div>
+            <div class="graph-gridline" style="bottom: 50%;"></div>
+            <div class="graph-gridline" style="bottom: 25%;"></div>
+            <div class="graph-x-labels">
+                <span>1回目</span>
+                <span>2回目</span>
+                <span>3回目</span>
+                <span>4回目</span>
+                <span>5回目</span>
+                <span>6回目</span>
+                <span>7回目</span>
+                <span>8回目</span>
+            </div>
+        </div>
+
+        <div class="section-gap"></div>
+
+        <!-- 全体のふりかえり -->
+        <div class="section-title">成長のふりかえり</div>
+        <span class="section-subtitle">複数回の経験を通じて感じた変化を記録しよう</span>
+
+        <div class="full-memo" style="margin-top: 6px;">
+            <div class="memo-box-label">経営観の変化・MG研修を通じて学んだこと</div>
+            <div class="memo-lines"></div>
+            <div class="memo-lines"></div>
+            <div class="memo-lines"></div>
+            <div class="memo-lines"></div>
+        </div>
+
+        <div class="memo-grid" style="margin-top: 8px;">
+            <div class="memo-box">
+                <div class="memo-box-label">自分の経営の強み</div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+            </div>
+            <div class="memo-box">
+                <div class="memo-box-label">もっと伸ばしたいスキル</div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+                <div class="memo-lines"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
