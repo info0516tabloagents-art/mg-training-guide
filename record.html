@@ -22,14 +22,16 @@
 
         .page {
             width: 297mm;
-            min-height: 210mm;
+            height: 210mm;
             margin: 0 auto;
             padding: 6mm 10mm;
+            display: flex;
+            flex-direction: column;
         }
 
         @media print {
             body { background: #fff; }
-            .page { padding: 0; margin: 0; width: 100%; }
+            .page { padding: 0; margin: 0; width: 100%; height: 100%; }
             .no-print { display: none !important; }
         }
 
@@ -247,7 +249,6 @@
         }
 
         .write-cell-xl {
-            height: 50px;
             background: #fff;
             vertical-align: top;
         }
@@ -310,12 +311,44 @@
 
         .section-gap { height: 6px; }
 
+        /* ===== テーブルセクション（下まで引き伸ばし） ===== */
+        .table-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .table-wrap {
+            flex: 1;
+            min-height: 0;
+            position: relative;
+        }
+
+        .table-wrap .compare-table {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .compare-table thead tr,
+        .compare-table tbody tr {
+            height: 1px;
+        }
+
+        .compare-table tbody tr:has(.write-cell-xl) {
+            height: auto;
+        }
+
         /* ===== フッター ===== */
         .sheet-footer {
-            margin-top: 6px;
+            margin-top: 4px;
             text-align: right;
             font-size: 8px;
             color: #a0aec0;
+            flex-shrink: 0;
         }
 
     </style>
@@ -396,9 +429,11 @@
         <div class="section-gap"></div>
 
         <!-- 成績テーブル -->
+        <div class="table-section">
         <div class="section-label">研修ごとの成績記録</div>
         <span class="section-sub">毎回の研修後に1列ずつ記入していこう</span>
 
+        <div class="table-wrap">
         <table class="compare-table" style="margin-top: 4px;">
             <thead>
                 <tr>
@@ -530,10 +565,12 @@
                 </tr>
             </tbody>
         </table>
+        </div><!-- /table-wrap -->
 
         <!-- フッター -->
         <div class="sheet-footer">Unicara株式会社　MG研修 成長記録カード</div>
 
+        </div><!-- /table-section -->
     </div>
 
 </body>
