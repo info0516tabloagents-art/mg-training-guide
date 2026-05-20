@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG研修 成長記録カード</title>
+    <title>MG研修 成長記録カード｜Unicara株式会社</title>
     <style>
         @page {
-            size: A4;
-            margin: 10mm 10mm;
+            size: A4 landscape;
+            margin: 8mm 10mm;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,10 +21,10 @@
         }
 
         .page {
-            width: 210mm;
-            min-height: 295mm;
+            width: 297mm;
+            min-height: 210mm;
             margin: 0 auto;
-            padding: 8mm 10mm;
+            padding: 6mm 10mm;
         }
 
         @media print {
@@ -60,11 +60,11 @@
             align-items: flex-end;
             border-bottom: 3px solid #1a202c;
             padding-bottom: 5px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .sheet-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 900;
             letter-spacing: 0.03em;
         }
@@ -76,9 +76,23 @@
             margin-left: 6px;
         }
 
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .company-name {
+            font-size: 9px;
+            font-weight: 700;
+            color: #4a5568;
+            letter-spacing: 0.05em;
+        }
+
         .header-info {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             font-size: 10px;
             align-items: center;
         }
@@ -93,19 +107,19 @@
 
         .field-input {
             border-bottom: 1px solid #a0aec0;
-            min-width: 100px;
+            min-width: 110px;
             height: 18px;
         }
 
         /* ===== 段位システム ===== */
         .rank-section {
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .rank-title {
             font-size: 11px;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -124,15 +138,15 @@
             align-items: center;
             justify-content: space-between;
             position: relative;
-            padding: 0 12px;
+            padding: 0 20px;
         }
 
         .rank-track::before {
             content: "";
             position: absolute;
-            top: 22px;
-            left: 36px;
-            right: 36px;
+            top: 20px;
+            left: 44px;
+            right: 44px;
             height: 3px;
             background: #e2e8f0;
             z-index: 0;
@@ -142,27 +156,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
+            gap: 2px;
             z-index: 1;
-            width: 64px;
+            width: 72px;
         }
 
         .rank-circle {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 3px solid;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 8px;
-            font-weight: 800;
             background: #fff;
-            position: relative;
         }
 
         .rank-circle-inner {
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .rank-num {
@@ -184,28 +195,20 @@
             color: #718096;
         }
 
-        /* 各段位の色 */
         .rank-1 .rank-circle { border-color: #e2e8f0; color: #a0aec0; }
         .rank-1 .rank-name { color: #718096; }
-
         .rank-2 .rank-circle { border-color: #f6e05e; color: #d69e2e; }
         .rank-2 .rank-name { color: #d69e2e; }
-
         .rank-3 .rank-circle { border-color: #ed8936; color: #dd6b20; }
         .rank-3 .rank-name { color: #dd6b20; }
-
         .rank-4 .rank-circle { border-color: #48bb78; color: #38a169; }
         .rank-4 .rank-name { color: #38a169; }
-
         .rank-5 .rank-circle { border-color: #4299e1; color: #3182ce; }
         .rank-5 .rank-name { color: #3182ce; }
-
         .rank-6 .rank-circle { border-color: #9f7aea; color: #805ad5; }
         .rank-6 .rank-name { color: #805ad5; }
-
         .rank-7 .rank-circle { border-color: #a0522d; color: #8b4513; }
         .rank-7 .rank-name { color: #8b4513; }
-
         .rank-8 .rank-circle { border-color: #1a202c; color: #1a202c; background: #1a202c; }
         .rank-8 .rank-circle-inner { color: #fff; }
         .rank-8 .rank-name { color: #1a202c; }
@@ -214,19 +217,19 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 8.5px;
+            font-size: 9px;
         }
 
         th, td {
             border: 1px solid #a0aec0;
-            padding: 3px 5px;
+            padding: 3px 6px;
             text-align: center;
         }
 
         th {
             background: #f7f8fc;
             font-weight: 700;
-            font-size: 8px;
+            font-size: 8.5px;
             color: #2d3748;
         }
 
@@ -235,17 +238,18 @@
             font-weight: 700;
             background: #f7f8fc;
             white-space: nowrap;
-            font-size: 8px;
+            font-size: 8.5px;
         }
 
         .write-cell {
-            height: 20px;
+            height: 22px;
             background: #fff;
         }
 
-        .write-cell-tall {
-            height: 28px;
+        .write-cell-xl {
+            height: 50px;
             background: #fff;
+            vertical-align: top;
         }
 
         .highlight-row td {
@@ -263,22 +267,21 @@
         .cat-header {
             background: #edf2f7 !important;
             font-weight: 800;
-            font-size: 7.5px;
+            font-size: 8px;
             color: #4a5568;
             text-align: left;
             letter-spacing: 0.1em;
         }
 
-        .compare-table th.round-header {
-            font-size: 8px;
-            padding: 4px 2px;
-        }
-
         .compare-table .row-label {
-            width: 18%;
+            width: 14%;
         }
 
-        /* 段位に対応したヘッダー色 */
+        .compare-table th.round-header {
+            font-size: 8.5px;
+            padding: 4px 3px;
+        }
+
         .rh-1 { background: #e2e8f0 !important; color: #4a5568 !important; }
         .rh-2 { background: #f6e05e !important; color: #744210 !important; }
         .rh-3 { background: #ed8936 !important; color: #fff !important; }
@@ -288,85 +291,8 @@
         .rh-7 { background: #a0522d !important; color: #fff !important; }
         .rh-8 { background: #1a202c !important; color: #fff !important; }
 
-        /* ===== グラフ ===== */
-        .graph-area {
-            border: 1px solid #a0aec0;
-            border-radius: 4px;
-            height: 80px;
-            margin-top: 5px;
-            position: relative;
-        }
-
-        .graph-area::before {
-            content: "自己資本（純資産）の推移を記入しよう";
-            position: absolute;
-            top: 3px;
-            left: 8px;
-            font-size: 7px;
-            color: #a0aec0;
-        }
-
-        .graph-y-axis {
-            position: absolute;
-            left: 24px;
-            bottom: 18px;
-            top: 16px;
-            border-left: 1px solid #cbd5e0;
-        }
-
-        .graph-gridline {
-            position: absolute;
-            left: 24px;
-            right: 10px;
-            border-top: 1px dotted #e2e8f0;
-        }
-
-        .graph-x-labels {
-            position: absolute;
-            bottom: 3px;
-            left: 24px;
-            right: 10px;
-            display: flex;
-            justify-content: space-around;
-            font-size: 6.5px;
-            color: #718096;
-        }
-
-        /* ===== メモ ===== */
-        .memo-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            margin-top: 5px;
-        }
-
-        .memo-box {
-            border: 1px solid #a0aec0;
-            border-radius: 4px;
-            padding: 5px 7px;
-            min-height: 48px;
-        }
-
-        .memo-box-large {
-            min-height: 90px;
-        }
-
-        .memo-box-label {
-            font-size: 8px;
-            font-weight: 700;
-            color: #4a5568;
-            margin-bottom: 1px;
-        }
-
-        .memo-lines {
-            border-bottom: 1px dotted #cbd5e0;
-            height: 13px;
-        }
-
-        .section-gap { height: 8px; }
-
         .section-label {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 800;
             background: #1a202c;
             color: #fff;
@@ -382,6 +308,16 @@
             margin-left: 6px;
         }
 
+        .section-gap { height: 6px; }
+
+        /* ===== フッター ===== */
+        .sheet-footer {
+            margin-top: 6px;
+            text-align: right;
+            font-size: 8px;
+            color: #a0aec0;
+        }
+
     </style>
 </head>
 <body>
@@ -395,10 +331,13 @@
         <!-- ヘッダー -->
         <div class="sheet-header">
             <div class="sheet-title">MG研修 成長記録カード <small>&#x1F3AF; 目指せ黒帯！</small></div>
-            <div class="header-info">
-                <div class="field">
-                    <span class="field-label">氏名：</span>
-                    <span class="field-input"></span>
+            <div class="header-right">
+                <div class="company-name">Unicara株式会社</div>
+                <div class="header-info">
+                    <div class="field">
+                        <span class="field-label">氏名：</span>
+                        <span class="field-input"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -454,11 +393,13 @@
             </div>
         </div>
 
+        <div class="section-gap"></div>
+
         <!-- 成績テーブル -->
         <div class="section-label">研修ごとの成績記録</div>
         <span class="section-sub">毎回の研修後に1列ずつ記入していこう</span>
 
-        <table class="compare-table" style="margin-top: 5px;">
+        <table class="compare-table" style="margin-top: 4px;">
             <thead>
                 <tr>
                     <th class="row-label"></th>
@@ -556,88 +497,42 @@
                 <tr><td colspan="9" class="cat-header">&#x25B6; 戦略・ふりかえり</td></tr>
                 <tr>
                     <td class="row-label">今回の戦略</td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
                 </tr>
                 <tr>
                     <td class="row-label">良かった点</td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
                 </tr>
                 <tr>
                     <td class="row-label">次回への課題</td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
-                    <td class="write-cell-tall"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
+                    <td class="write-cell-xl"></td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="section-gap"></div>
-
-        <!-- ふりかえり -->
-        <div class="section-label">成長のふりかえり</div>
-        <span class="section-sub">研修を重ねるたびに書き足していこう</span>
-
-        <div class="memo-grid">
-            <div class="memo-box memo-box-large">
-                <div class="memo-box-label">自分の経営スタイル・強み</div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-            </div>
-            <div class="memo-box memo-box-large">
-                <div class="memo-box-label">MG研修を通じて変わったこと</div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-            </div>
-            <div class="memo-box memo-box-large">
-                <div class="memo-box-label">仕事や実務に活かせること</div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-            </div>
-            <div class="memo-box memo-box-large">
-                <div class="memo-box-label">黒帯を取った時の自分へ一言</div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-                <div class="memo-lines"></div>
-            </div>
-        </div>
+        <!-- フッター -->
+        <div class="sheet-footer">Unicara株式会社　MG研修 成長記録カード</div>
 
     </div>
 
